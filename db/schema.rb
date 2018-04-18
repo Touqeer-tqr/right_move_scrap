@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20180418103123) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "cities", force: :cascade do |t|
     t.string   "name"
     t.integer  "index_alphabet_id"
@@ -22,8 +25,8 @@ ActiveRecord::Schema.define(version: 20180418103123) do
     t.datetime "updated_at",        null: false
   end
 
-  add_index "cities", ["index_alphabet_id"], name: "index_cities_on_index_alphabet_id"
-  add_index "cities", ["state_id"], name: "index_cities_on_state_id"
+  add_index "cities", ["index_alphabet_id"], name: "index_cities_on_index_alphabet_id", using: :btree
+  add_index "cities", ["state_id"], name: "index_cities_on_state_id", using: :btree
 
   create_table "index_alphabets", force: :cascade do |t|
     t.string   "title"
@@ -33,7 +36,7 @@ ActiveRecord::Schema.define(version: 20180418103123) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "index_alphabets", ["state_id"], name: "index_index_alphabets_on_state_id"
+  add_index "index_alphabets", ["state_id"], name: "index_index_alphabets_on_state_id", using: :btree
 
   create_table "properties", force: :cascade do |t|
     t.string   "id_from_rightmove"
@@ -53,9 +56,9 @@ ActiveRecord::Schema.define(version: 20180418103123) do
     t.datetime "updated_at",        null: false
   end
 
-  add_index "properties", ["city_id"], name: "index_properties_on_city_id"
-  add_index "properties", ["index_alphabet_id"], name: "index_properties_on_index_alphabet_id"
-  add_index "properties", ["state_id"], name: "index_properties_on_state_id"
+  add_index "properties", ["city_id"], name: "index_properties_on_city_id", using: :btree
+  add_index "properties", ["index_alphabet_id"], name: "index_properties_on_index_alphabet_id", using: :btree
+  add_index "properties", ["state_id"], name: "index_properties_on_state_id", using: :btree
 
   create_table "states", force: :cascade do |t|
     t.string   "name"
@@ -63,4 +66,10 @@ ActiveRecord::Schema.define(version: 20180418103123) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "cities", "index_alphabets"
+  add_foreign_key "cities", "states"
+  add_foreign_key "index_alphabets", "states"
+  add_foreign_key "properties", "cities"
+  add_foreign_key "properties", "index_alphabets"
+  add_foreign_key "properties", "states"
 end
