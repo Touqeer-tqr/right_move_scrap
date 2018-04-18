@@ -119,4 +119,13 @@ class Home < ActiveRecord::Base
 # get_properties
 
 
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      all.each do |property|
+        csv << property.attributes
+      end
+    end
+  end
+
 end

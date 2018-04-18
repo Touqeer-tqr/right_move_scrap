@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Rightmove</Data></Cell>
+        <Cell><Data ss:Type="String">Price</Data></Cell>
+        <Cell><Data ss:Type="String">Description</Data></Cell>
+        <Cell><Data ss:Type="String">Address</Data></Cell>
+        <Cell><Data ss:Type="String">Street</Data></Cell>
+        <Cell><Data ss:Type="String">Property</Data></Cell>
+        <Cell><Data ss:Type="String">City</Data></Cell>
+        <Cell><Data ss:Type="String">Link</Data></Cell>
+        <Cell><Data ss:Type="String">Linked</Data></Cell>
+      </Row>
+    <% @properties.each do |property| %>
+      <Row>
+        <Cell><Data ss:Type="string"><%= property.id_from_rightmove %></Data></Cell>
+        <Cell><Data ss:Type="string"><%= property.price %></Data></Cell>
+        <Cell><Data ss:Type="string"><%= property.description %></Data></Cell>
+        <Cell><Data ss:Type="string"><%= property.address %></Data></Cell>
+        <Cell><Data ss:Type="string"><%= property.street %></Data></Cell>
+        <Cell><Data ss:Type="string"><%= property.property_for %></Data></Cell>
+        <Cell><Data ss:Type="string"><%= property.city_or_town %></Data></Cell>
+        <Cell><Data ss:Type="string"><%= property.property_link %></Data></Cell>
+        <Cell><Data ss:Type="string"><%= property.linked_on %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

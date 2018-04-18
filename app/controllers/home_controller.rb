@@ -28,6 +28,12 @@ class HomeController < ApplicationController
   end
 
   def download_xls
+    @properties = Property.all
+    respond_to do |format|
+      format.html
+      format.csv { send_data Property.all.to_csv }
+      format.xls 
+    end
   end
 
 end
