@@ -1,0 +1,121 @@
+<style>
+  .container{
+    padding: 10px;
+  }
+  th, td{
+    white-space: nowrap;
+    vertical-align: middle !important;
+  }
+  .pagination a, .pagination span.current, .pagination span.gap {
+    float: left;
+    padding: 0 14px;
+    line-height: 38px;
+    text-decoration: none;
+    background-color: white;
+    border: 1px solid #DDD;
+    border-left-width: 0;
+}
+
+.pagination {
+    border-left: 1px solid #ddd;
+    .first{
+        padding : 0;
+        float: none;
+        border: none;
+    }
+    .prev {
+        padding : 0;
+        float: none;
+        border: none;
+    }
+    .page{
+        padding : 0;
+        float: none;
+        border: none;
+    }
+    .next{
+        padding : 0;
+        float: none;
+        border: none;
+    }
+    .last{
+        padding : 0;
+        float: none;
+        border: none;
+    }
+}
+</style>
+
+<div class="container" style="text-align: center;">
+  <h1>Rightmove Scrapper</h1>
+</div>
+
+<div class="container">
+  <form action="">
+    <div class="form-group">
+      <label for="link"><b>Rightmove Link to scrape:</b></label>
+      <input type="text" class="form-control" style="width:  600px;">
+    </div>
+    <div class="checkbox">
+      <label for="type"><b>Type of scraping:</b></label>
+      <label style="width:  180px;"><input type="radio" name="url_type" value="single"><b> Single Property</b></label>
+      <label style="width:  180px;"><input type="radio" name="url_type" value="list"><b> List of Properties</b></label>
+    </div>
+    <button type="submit" class="btn btn-info btn-md">Start Scraping</button>
+  </form>
+</div>
+
+<div class="container" style="text-align: center;">
+  <a class="btn btn-primary btn-sm" style="margin:  10px;" href="http://www.rightmove.co.uk/uk-property-search-a-be.html" target="_blank">UK Properties:</a>
+  <a class="btn btn-primary btn-sm" style="margin:  10px;"  href="http://www.rightmove.co.uk/london-property-search-ba.html" target="_blank">London Properties:</a>
+</div>
+
+<div class="container" style="text-align: center;">
+  <label for="type"><b>Currently scraped from: </b></label>
+  Currently scraped from: <a class="btn btn-success btn-sm" href="http://www.rightmove.co.uk/property-for-sale/Aberdeen-County.html" target="_blank" >Property for sale in Aberdeen County</a>
+</div>
+
+
+<br>
+<% unless @properties.count == 0 %>
+  <label for="type"><b>Properties: <%= @count %></b></label>
+  <div style="margin: 1%;overflow-x:  scroll;width: 98% !important;border: 1px solid black;">
+    <table class="table table-striped" style="border: 1px solid black;">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Rightmove ID</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Address</th>
+          <th>Street</th>
+          <th>Property for</th>
+          <th>City</th>
+          <th>Link</th>
+          <th>Linked On</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @properties.each do |property| %>
+          <tr>
+            <td><img src=<%= property.image_url %> height="100" width="120"></td>
+            <td><%= property.id_from_rightmove %></td>
+            <td><%= property.price %></td>
+            <td><%= property.description %></td>
+            <td><%= property.address %></td>
+            <td><%= property.street %></td>
+            <td><%= property.property_for %></td>
+            <td><%= property.city_or_town %></td>
+            <td><a style="margin:  10px;"  href=<%= property.property_link %> target="_blank"><%= property.property_link %></a></td>
+            <td><%= property.linked_on %></td>
+            <td><button class="btn btn-sm btn-danger" type="button">Delete</button></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="container" style="text-align: center; width: 100%;">
+    <%= paginate @properties %>
+  </div>
+<% end %>
