@@ -2,8 +2,9 @@
   padding: 10px;
 }
 th, td{
-  white-space: nowrap;
+  white-space: nowrap !important;
   vertical-align: middle !important;
+  text-align: center;
 }
 .pagination a, .pagination span.current, .pagination span.gap {
   float: left;

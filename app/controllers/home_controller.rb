@@ -5,6 +5,7 @@ class HomeController < ApplicationController
     # london_cities = 
     @count = Property.all.count
     @properties = Property.page(params[:page]).per(10)
+    # @all_porp = Property.all
     # unless IndexAlphabet.all.count == 0
     #   @uk_indexes = IndexAlphabet.where(state_id: 1).all
     #   @london_indexes = IndexAlphabet.where(state_id: 2).all
