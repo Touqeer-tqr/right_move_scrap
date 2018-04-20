@@ -1,51 +1,3 @@
-<style>
-  .container{
-    padding: 10px;
-  }
-  th, td{
-    white-space: nowrap;
-    vertical-align: middle !important;
-  }
-  .pagination a, .pagination span.current, .pagination span.gap {
-    float: left;
-    padding: 0 14px;
-    line-height: 38px;
-    text-decoration: none;
-    background-color: white;
-    border: 1px solid #DDD;
-    border-left-width: 0;
-}
-
-.pagination {
-    border-left: 1px solid #ddd;
-    .first{
-        padding : 0;
-        float: none;
-        border: none;
-    }
-    .prev {
-        padding : 0;
-        float: none;
-        border: none;
-    }
-    .page{
-        padding : 0;
-        float: none;
-        border: none;
-    }
-    .next{
-        padding : 0;
-        float: none;
-        border: none;
-    }
-    .last{
-        padding : 0;
-        float: none;
-        border: none;
-    }
-}
-</style>
-
 <div class="container" style="text-align: center;">
   <h1>Rightmove Scrapper</h1>
 </div>
@@ -99,14 +51,19 @@
         <tr>
           <th>Image</th>
           <th>Rightmove ID</th>
-          <th>Price</th>
-          <th>Description</th>
           <th>Address</th>
+          <th>Asking Price</th>
+          <th>Last Sold Price</th>
+          <th>Listed On</th>
+          <th>Last Sold Date</th>
+          <th>Description</th>
+          <th>Beds</th>
+          <th>Postal Code</th>
           <th>Street</th>
           <th>Property for</th>
           <th>City</th>
           <th>Link</th>
-          <th>Linked On</th>
+          <th>Map</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -115,14 +72,19 @@
           <tr>
             <td><img src=<%= property.image_url %> height="100" width="120"></td>
             <td><%= property.id_from_rightmove %></td>
-            <td><%= property.price %></td>
-            <td><%= property.description %></td>
             <td><%= property.address %></td>
-            <td><%= property.street %></td>
+            <td><%= property.asking_price %></td>
+            <td><%= property.last_sold_price %></td>
+            <td><%= property.listed_on %></td>
+            <td><%= property.last_sold_date %></td>
+            <td><%= property.description %></td>
+            <td><%= property.beds %></td>
+            <td><%= property.postal_code %></td>
+            <td><%= property.road %></td>
             <td><%= property.property_for %></td>
-            <td><%= property.city_or_town %></td>
+            <td><%= property.city_name %></td>
             <td><a style="margin:  10px;"  href=<%= property.property_link %> target="_blank"><%= property.property_link %></a></td>
-            <td><%= property.linked_on %></td>
+            <td><a style="margin:  10px;"  href="https://maps.google.com/maps?q=<%= property.latitude %>,<%= property.longitude %>&t=k" target="_blank">Map</a></td>
             <td><button class="btn btn-sm btn-danger" type="button">Delete</button></td>
           </tr>
         <% end %>

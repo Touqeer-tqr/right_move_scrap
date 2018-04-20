@@ -32,6 +32,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 gem 'httparty'
 gem 'nokogiri'
+gem 'geocoder'
+gem 'watir'
+gem "selenium-webdriver"
 
 gem 'bootstrap', '~> 4.1.0'
 gem 'kaminari'
