@@ -7,5 +7,5 @@
 # IndexAlphabet.create(index_alphabets.first["london"])
 
 
-# Property.destroy_all
+Property.destroy_all
 Home::scrape_properties
