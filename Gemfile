@@ -35,6 +35,8 @@ gem 'nokogiri'
 gem 'geocoder'
 gem 'watir'
 gem "selenium-webdriver"
+gem 'chromedriver-helper'
+
 
 gem 'bootstrap', '~> 4.1.0'
 gem 'kaminari'
