@@ -9,8 +9,13 @@ class Home < ActiveRecord::Base
   Geocoder.configure(:timeout => 15, :api_key => "#{YOUR_GOOGLE_API_KEY}", :use_https => true)
   # Selenium::WebDriver::Chrome.driver_path = "#{Rails.root}/public/chromedriver/chromedriver"
   # Selenium::WebDriver::Chrome.driver_path = ".apt/opt/google/chrome/google-chrome"
+  # Selenium::WebDriver::Chrome.driver_path = "bin/chromedriver"
+  Selenium::WebDriver::Chrome.driver_path=ENV['GOOGLE_CHROME_BIN']
+  Selenium::WebDriver.logger.level = :debug
 
   # browser = Watir::Browser.new :chrome, headless: true
+
+  # Watir::Browser.new :chrome, headless:true
 
   paginates_per 10
 

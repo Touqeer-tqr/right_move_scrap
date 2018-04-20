@@ -33,7 +33,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'httparty'
 gem 'nokogiri'
 gem 'geocoder'
-gem 'watir'
+gem 'watir', '5.0.0'
 gem "selenium-webdriver"
 # gem 'chromedriver-helper'
 
