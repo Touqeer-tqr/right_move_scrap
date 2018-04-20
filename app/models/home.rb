@@ -95,7 +95,7 @@ class Home < ActiveRecord::Base
   end
 
   def self.scrape_single_property(property_link)
-    Selenium::WebDriver::Chrome.driver_path = "/home/touqeer/Desktop/rightmove/chromedriver"
+    # Selenium::WebDriver::Chrome.driver_path = "/home/touqeer/Desktop/rightmove/chromedriver"
     @browser.goto(property_link)
     @browser.execute_script("$('#historyMarketTab').click()")
     @browser.div(:class => "ajaxLoadingSpinner"  ).wait_while_present
@@ -193,7 +193,8 @@ class Home < ActiveRecord::Base
     
     pages = (nokogiri_page.css("div.searchHeader-title#searchHeader > span.searchHeader-resultCount").text.to_f/properties_per_page).ceil
 
-    @browser = Watir::Browser.new :chrome
+    # @browser = Watir::Browser.new :chrome
+    @browser = Watir::Browser.new :chrome, headless: true
     
     properties = scrape_properties_from_single_page(nokogiri_page, cities[0].keys[0].split('-').first, property_for[0], properties_per_page)
     
@@ -207,7 +208,7 @@ class Home < ActiveRecord::Base
     end
 
     properties
-
+    @browser.close
   end
 
 # get_properties
