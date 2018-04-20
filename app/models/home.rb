@@ -9,7 +9,7 @@ class Home < ActiveRecord::Base
   Geocoder.configure(:timeout => 15, :api_key => "#{YOUR_GOOGLE_API_KEY}", :use_https => true)
   Selenium::WebDriver::Chrome.driver_path = "#{Rails.root}/public/chromedriver/chromedriver"
 
-  paginates_per 50
+  paginates_per 10
 
   def self.scrape_all_indexs
     uk_london_index_aplhabets = []
