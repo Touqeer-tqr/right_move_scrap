@@ -5,11 +5,11 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Create App
 
-* System dependencies
+* git push heroku master
 
-* Configuration
+* add google chrome add on from heroku
 
 * Database creation
 
