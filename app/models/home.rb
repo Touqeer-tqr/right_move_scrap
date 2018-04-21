@@ -1,21 +1,33 @@
 class Home < ActiveRecord::Base
   require 'httparty'
-  require 'nokogiri'
   require 'geocoder'
-  require 'watir'
   require "selenium-webdriver"
+  require 'phantomjs'
+  require 'watir'
+  require 'nokogiri'
 
   BASE_URL = "http://www.rightmove.co.uk"
   Geocoder.configure(:timeout => 15, :api_key => "#{YOUR_GOOGLE_API_KEY}", :use_https => true)
+  # Selenium::WebDriver::Chrome.driver_path=ENV['GOOGLE_CHROME_BIN']
+  # Selenium::WebDriver.logger.level = :debug
   # Selenium::WebDriver::Chrome.driver_path = "#{Rails.root}/public/chromedriver/chromedriver"
   # Selenium::WebDriver::Chrome.driver_path = ".apt/opt/google/chrome/google-chrome"
   # Selenium::WebDriver::Chrome.driver_path = "bin/chromedriver"
-  Selenium::WebDriver::Chrome.driver_path=ENV['GOOGLE_CHROME_BIN']
-  Selenium::WebDriver.logger.level = :debug
 
   # browser = Watir::Browser.new :chrome, headless: true
 
   # Watir::Browser.new :chrome, headless:true
+  # caps = Selenium::WebDriver::Remote::Capabilities.chrome("desiredCapabilities" => {"takesScreenshot" => true}, "chromeOptions" => {"binary" => ENV['GOOGLE_CHROME_BIN']})
+  # driver = Selenium::WebDriver.for :chrome, desired_capabilities: caps, switches: %w[--headless --no-sandbox --disable-gpu --remote-debugin-port=9222 --screen-size=1200x800] 
+
+  # options = Selenium::WebDriver::Chrome::Options.new
+  # options.add_argument('--headless')
+  # driver = Selenium::WebDriver.for :chrome, options: options
+  # driver.navigate.to "https://www.google.com" 
+  # driver.manage.window.resize_to(800, 800)
+  # driver.save_screenshot "screenshot.png" 
+
+  # @browser = Watir::Browser.new :phantomjs
 
   paginates_per 10
 
@@ -101,10 +113,9 @@ class Home < ActiveRecord::Base
   end
 
   def self.scrape_single_property(property_link)
-    # Selenium::WebDriver::Chrome.driver_path = "/home/touqeer/Desktop/rightmove/chromedriver"
     @browser.goto(property_link)
     @browser.execute_script("$('#historyMarketTab').click()")
-    @browser.div(:class => "ajaxLoadingSpinner"  ).wait_while_present
+    # @browser.div(:class => "ajaxLoadingSpinner"  ).wait_while_present
     nokogiri_page = Nokogiri::HTML(@browser.html)
     
     str = find_lat_lon(nokogiri_page.css("script").text.split("streetViewOptions").last.gsub("\"","").strip.gsub(" ",""))
@@ -163,6 +174,7 @@ class Home < ActiveRecord::Base
       property_link = BASE_URL + "/property-for-#{property_for}/property-#{id_from_rightmove}.html"
       image_url = "http:" + properties_divs[n].css("div.propertyCard-wrapper > div.propertyCard-images > a.propertyCard-img-link.aspect-3x2 > div.propertyCard-img > img").attribute('src').value
       # properties << scrape_single_property(property_link).merge!(image_url: image_url, property_for: property_for)
+      # puts scrape_single_property(property_link).merge!(image_url: image_url, property_for: property_for)
       puts Property.create(scrape_single_property(property_link).merge!(image_url: image_url, property_for: property_for))
         begin
         rescue  
@@ -199,8 +211,8 @@ class Home < ActiveRecord::Base
     
     pages = (nokogiri_page.css("div.searchHeader-title#searchHeader > span.searchHeader-resultCount").text.to_f/properties_per_page).ceil
 
-    # @browser = Watir::Browser.new :chrome
-    @browser = Watir::Browser.new :chrome, headless: true
+    # @browser = Watir::Browser.new :chrome, headless: true
+    @browser = Watir::Browser.new :phantomjs
     
     properties = scrape_properties_from_single_page(nokogiri_page, cities[0].keys[0].split('-').first, property_for[0], properties_per_page)
     

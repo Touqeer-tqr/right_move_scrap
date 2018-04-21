@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-# ruby '2.4.2'
+ruby '2.3.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.9'
 gem 'pg', '0.20'
@@ -31,10 +31,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'httparty'
-gem 'nokogiri'
 gem 'geocoder'
+gem 'selenium-webdriver', '2.53.4'
+gem 'phantomjs', '2.1.1.0'
 gem 'watir', '5.0.0'
-gem "selenium-webdriver"
+gem 'zip'
+gem 'nokogiri'
 # gem 'chromedriver-helper'
 
 gem 'bootstrap', '~> 4.1.0'
