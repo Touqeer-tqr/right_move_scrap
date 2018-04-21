@@ -8,6 +8,7 @@ class Home < ActiveRecord::Base
 
   BASE_URL = "http://www.rightmove.co.uk"
   Geocoder.configure(:timeout => 15, :api_key => "#{YOUR_GOOGLE_API_KEY}", :use_https => true)
+  Selenium::WebDriver::PhantomJS.path = "#{Rails.root}/bin/phantomjs"
   # Selenium::WebDriver::Chrome.driver_path=ENV['GOOGLE_CHROME_BIN']
   # Selenium::WebDriver.logger.level = :debug
   # Selenium::WebDriver::Chrome.driver_path = "#{Rails.root}/public/chromedriver/chromedriver"
