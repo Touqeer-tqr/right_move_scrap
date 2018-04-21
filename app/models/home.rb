@@ -9,26 +9,6 @@ class Home < ActiveRecord::Base
   BASE_URL = "http://www.rightmove.co.uk"
   Geocoder.configure(:timeout => 15, :api_key => "#{YOUR_GOOGLE_API_KEY}", :use_https => true)
   Selenium::WebDriver::PhantomJS.path = "#{Rails.root}/bin/phantomjs"
-  # Selenium::WebDriver::Chrome.driver_path=ENV['GOOGLE_CHROME_BIN']
-  # Selenium::WebDriver.logger.level = :debug
-  # Selenium::WebDriver::Chrome.driver_path = "#{Rails.root}/public/chromedriver/chromedriver"
-  # Selenium::WebDriver::Chrome.driver_path = ".apt/opt/google/chrome/google-chrome"
-  # Selenium::WebDriver::Chrome.driver_path = "bin/chromedriver"
-
-  # browser = Watir::Browser.new :chrome, headless: true
-
-  # Watir::Browser.new :chrome, headless:true
-  # caps = Selenium::WebDriver::Remote::Capabilities.chrome("desiredCapabilities" => {"takesScreenshot" => true}, "chromeOptions" => {"binary" => ENV['GOOGLE_CHROME_BIN']})
-  # driver = Selenium::WebDriver.for :chrome, desired_capabilities: caps, switches: %w[--headless --no-sandbox --disable-gpu --remote-debugin-port=9222 --screen-size=1200x800] 
-
-  # options = Selenium::WebDriver::Chrome::Options.new
-  # options.add_argument('--headless')
-  # driver = Selenium::WebDriver.for :chrome, options: options
-  # driver.navigate.to "https://www.google.com" 
-  # driver.manage.window.resize_to(800, 800)
-  # driver.save_screenshot "screenshot.png" 
-
-  # @browser = Watir::Browser.new :phantomjs
 
   paginates_per 10
 
@@ -117,6 +97,9 @@ class Home < ActiveRecord::Base
     @browser.goto(property_link)
     @browser.execute_script("$('#historyMarketTab').click()")
     # @browser.div(:class => "ajaxLoadingSpinner"  ).wait_while_present
+    while(@browser.div(:class => "ajaxLoadingSpinner").present?)
+      sleep(0.5)
+    end
     nokogiri_page = Nokogiri::HTML(@browser.html)
     
     str = find_lat_lon(nokogiri_page.css("script").text.split("streetViewOptions").last.gsub("\"","").strip.gsub(" ",""))
